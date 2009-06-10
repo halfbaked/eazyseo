@@ -20,6 +20,12 @@ class UrlMappings {
       "/site/$siteId/stem/$stemId/cusp/$cuspId/cuspEntrys" (controller: "cuspEntry", action: [GET:"list", POST:"save"])
       "/site/$siteId/stem/$stemId/cusp/$cuspId/cuspEntry/$id" (controller: "cuspEntry", action: [GET:"show", DELETE:"delete", POST:"update"])
       
+      "/$controller/$action?/$id?"{
+	      constraints {
+			 // apply constraints here
+		  }
+	  }
+
       "/"(view:"/index")
 	  "500"(view:'/error')
 	}

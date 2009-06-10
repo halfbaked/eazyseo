@@ -14,8 +14,7 @@ abstract class SecurityController {
 		def userEmail = userService.getCurrentUser().getEmail()
 		def query = persistenceManager.newQuery(User.class)	
 		query.setFilter("email == emailParam")
-		query.declareParameters("String emailParam")
-									
+		query.declareParameters("String emailParam")								
 		def user = query.execute(userEmail)?.get(0)
 		return user
     }
