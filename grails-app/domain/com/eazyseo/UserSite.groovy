@@ -17,10 +17,10 @@ class UserSite {
 	String type // Name of relationship: Admin, Power, or Basic
 	
 	@Persistent
-	User user
+	Key user
 	
 	@Persistent
-	Site site
+	Key site
 	       
     static constraints = {
         key (nullable:true)	    	
@@ -29,14 +29,5 @@ class UserSite {
     String toString() {
         return type
     }
-    
-    def bind() {
-    	//site?.userSites << site
-    	//user?.userSites << site
-    }
-    
-    def unbind() {
-    	//site?.userSites - site
-    	//user?.userSites - site
-    }
+   
 }

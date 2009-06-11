@@ -3,24 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Org List</title>
+        <title>Your Site List</title>
     </head>
     <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>            
-        </div>
         <div class="body">
-            <h1>Org List</h1>
+            <h1>Your Sites</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
                 <table>
-                    <thead>
-                        <tr>                        
-                   	        <g:sortableColumn property="name" title="Name" />
-                        </tr>
-                    </thead>
+                    
                     <tbody>
                     <g:each in="${siteList}" status="i" var="site">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">

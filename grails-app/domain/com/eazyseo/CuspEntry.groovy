@@ -18,13 +18,13 @@ class CuspEntry {
     
     // Monthly Searches
     @Persistent
-    Integer demand
+    Long demand
 
 	@Persistent
-	Integer rawSupply // Total search results returned
+	Long rawSupply // Total search results returned
 
     @Persistent
-    Integer fineSupply // Total search results returned from allinanchor: search
+    Long fineSupply // Total search results returned from allinanchor: search
 
 	@Persistent
 	Double kei

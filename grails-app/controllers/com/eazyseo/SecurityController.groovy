@@ -20,15 +20,15 @@ abstract class SecurityController {
     }
     
 	private auth() {
-		  
+		  println "calling private auth method"
 		  UserService userService = UserServiceFactory.getUserService();
 		  
 		  if(!userService.isUserLoggedIn()) {
-		  
-		  	def loginUrl = userService.createLoginURL("/")
-		  	println "login url retrieved: $loginUrl"
-		  	redirect(uri:loginUrl)
-		  	 
+		  	println "user is not logged in"
+		  	def loginUrl = userService.createLoginURL("/sites")
+		  	println "user not logged in. redirecting to login url:$loginUrl"
+		  	redirectToUrl(loginUrl)
+		  	println "finished redirect" 
 		  }else if (!userService.isUserAdmin()){
 		  
 		  	println "logged in, but not an admin"
@@ -36,19 +36,24 @@ abstract class SecurityController {
 		  	
 		  }else {
 		  	// retrieve user
-		  	println "user is an admin"
+		  	println "user logged in to Google, and is admin"
 			userService = UserServiceFactory.getUserService()    			
 			def userEmail = userService.getCurrentUser().getEmail()
 			def query = persistenceManager.newQuery(User.class)	
 			query.setFilter("email == emailParam")
    			query.declareParameters("String emailParam")										
 			def userList = (List<User>)query.execute(userEmail)
-			println ("userList: $userList")
+			
 			if(userList.size() == 0) {
-				println "User does not exist yet. Creating User"
-				def user = new User(email:userEmail)						       
-		        persistenceManager.makePersistent(user)		        
+				def user = new User(email:userEmail)										      
+		        persistenceManager.makePersistent(user)
 		    }		    
 		  } 
-	} 								
+	} 	
+	
+	// Used as redirects to external sites do not seem to be working on the app engine
+	void redirectToUrl(url) {
+		println "redirecting to url:$url"
+		render ("<html><head><meta http-equiv=\"refresh\" content=\"0;url=$url\"></head><body></body></html>")
+	}							
 }
